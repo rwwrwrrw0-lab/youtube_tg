@@ -1,7 +1,7 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = "ВАШ_ТОКЕН_БОТА"  # <- вставь сюда токен своего бота
+TOKEN = "TOKEN"  # <- вставь сюда токен своего бота
 
 # Функция старт
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
