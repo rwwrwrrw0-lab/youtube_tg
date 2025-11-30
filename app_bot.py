@@ -1,33 +1,30 @@
-import os
-from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = os.getenv("TOKEN")  # брать токен из Render env
+TOKEN = "ВАШ_ТОКЕН_БОТА"  # <- вставь сюда токен своего бота
 
-
+# Функция старт
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [
-            KeyboardButton(
-                text="Начать",
-                web_app=WebAppInfo(url="https://youtube.com")
-            )
-        ]
+        [InlineKeyboardButton("YouTube", url="https://youtube.com/")],
+        [InlineKeyboardButton("Instagram", url="https://instagram.com/")],
+        [InlineKeyboardButton("TikTok", url="https://www.tiktok.com/")],
+        [InlineKeyboardButton("Facebook", url="https://facebook.com/")],
+        [InlineKeyboardButton("VK", url="https://vk.com/")],
+        [InlineKeyboardButton("Discord", url="https://discord.com/")],
+        [InlineKeyboardButton("Telegram", url="https://telegram.org/")]
     ]
-
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
     await update.message.reply_text(
-        "Нажми кнопку «Начать» 👇",
+        "Привет! Выбери платформу, чтобы перейти:",
         reply_markup=reply_markup
     )
 
-
-def main():
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    app.run_polling()
-
-
 if __name__ == "__main__":
-    main()
+    app = ApplicationBuilder().token(TOKEN).build()
+    
+    app.add_handler(CommandHandler("start", start))
+    
+    print("Бот запущен...")
+    app.run_polling()
